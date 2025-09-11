@@ -38,6 +38,11 @@
       background: linear-gradient(90deg, #4CAF50, #2E7D32);
       transition: width 0.5s ease;
     }
+    .updated {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+    }
   </style>
 </head>
 <body>
@@ -57,49 +62,46 @@
     </div>
   </div>
 
-  <script>
-    const MAX_SEATS = 200;
+  <div class="updated">
+    Last Updated: <span id="last-updated">--</span>
+  </div>
 
+  <script>
     async function fetchData() {
       try {
-        const response = await fetch("https://vitmas-gravitas-2025-regr-api.onrender.com/registrations"); // your API
+        // 👇 replace <your-username> and <repo> with your GitHub repo details
+        const response = await fetch("https://raw.githubusercontent.com/AshmanSodhi/vitmas_gravitas_2025_regr_api/refs/heads/main/data.json");
         const data = await response.json();
+        const max_seats = 200;
 
-        // Example API returns: { event1: 168, event2: 192 } (seats left)
-        const event1SeatsLeft = data.event1;
-        const event2SeatsLeft = data.event2;
+        const event1 = data.event1;
+        const event2 = data.event2;
 
-        const event1Registered = MAX_SEATS - event1SeatsLeft;
-        const event2Registered = MAX_SEATS - event2SeatsLeft;
-
-        const event1Remaining = MAX_SEATS - event1Registered;
-        const event2Remaining = MAX_SEATS - event2Registered;
-
-        const event1Percent = (event1Remaining / MAX_SEATS) * 100;
-        const event2Percent = (event2Remaining / MAX_SEATS) * 100;
-
+        const event1Percent = (event1.registered / max_seats) * 100;
+        const event2Percent = (event2.registered / max_seats) * 100;
 
         // Update text
         document.getElementById("event1-count").textContent =
-          `${event1Registered} / ${MAX_SEATS} Seats Left | Total Registrations : ${event1Remaining} `;
+          `${event1.remaining} / ${max_seats} Seats Left | Total Registrations : ${event1.registered}`;
         document.getElementById("event2-count").textContent =
-          `${event2Registered} / ${MAX_SEATS} Seats Left | Total Registrations : ${event2Remaining}`;
+          `${event2.remaining} / ${max_seats} Seats Left | Total Registrations : ${event2.registered}`;
 
         // Update progress bars
         document.getElementById("event1-bar").style.width = `${event1Percent}%`;
         document.getElementById("event2-bar").style.width = `${event2Percent}%`;
+
+        // Update timestamp
+        document.getElementById("last-updated").textContent = data.last_updated;
 
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
 
-    // Fetch initially and refresh every 5s
+    // Fetch once on load
     fetchData();
-    setInterval(fetchData, 10000);
+    // Refresh every 5 minutes
+    setInterval(fetchData, 300000);
   </script>
 </body>
 </html>
-
-
-
