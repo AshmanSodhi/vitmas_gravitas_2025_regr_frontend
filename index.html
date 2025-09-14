@@ -85,7 +85,7 @@
         document.getElementById("event1-count").textContent =
           `${event1.remaining} / ${max_seats} Seats Left | Total Registrations : ${event1.registered}`;
         document.getElementById("event2-count").textContent =
-          `${max_seats_2 - event2.registered} / ${max_seats_2} Seats Left | Total Registrations : ${event2.registered}`;
+          `${max_seats_2 - (event2.registered - 80)} / ${max_seats_2} Seats Left | Total Registrations : ${event2.registered - 80}`;
 
         // Update progress bars
         document.getElementById("event1-bar").style.width = `${event1Percent}%`;
@@ -106,5 +106,6 @@
   </script>
 </body>
 </html>
+
 
 
