@@ -84,8 +84,7 @@
         // Update text
         document.getElementById("event1-count").textContent =
           `${max_seats - (event1.registered - 50)} / ${max_seats} Seats Left | Total Registrations : ${event1.registered - 50}`;
-        document.getElementById("event2-count").textContent =
-          `${max_seats_2 - (event2.registered - 80)} / ${max_seats_2} Seats Left | Total Registrations : ${event2.registered - 80}`;
+        document.getElementById("event2-count").textContent = "Event Cancelled";
 
         // Update progress bars
         document.getElementById("event1-bar").style.width = `${event1Percent}%`;
@@ -106,6 +105,7 @@
   </script>
 </body>
 </html>
+
 
 
 
