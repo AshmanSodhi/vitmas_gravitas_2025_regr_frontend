@@ -55,12 +55,6 @@
     </div>
   </div>
 
-  <div class="event">
-    <div class="label">Dez-O-Quest : <span id="event2-count">Loading...</span></div>
-    <div class="progress-container">
-      <div id="event2-bar" class="progress-bar"></div>
-    </div>
-  </div>
 
   <div class="updated">
     Last Updated: <span id="last-updated">--</span>
@@ -73,22 +67,22 @@
         const response = await fetch("https://raw.githubusercontent.com/AshmanSodhi/vitmas_gravitas_2025_regr_api/refs/heads/main/data.json");
         const data = await response.json();
         const max_seats = 150;
-        const max_seats_2 = 120;
+        //const max_seats_2 = 120;
 
         const event1 = data.event1;
-        const event2 = data.event2;
+       // const event2 = data.event2;
 
         const event1Percent = ((event1.registered - 50)/ max_seats) * 100;
-        const event2Percent = ((event2.registered - 80) / max_seats_2) * 100;
+       // const event2Percent = ((event2.registered - 80) / max_seats_2) * 100;
 
         // Update text
         document.getElementById("event1-count").textContent =
           `${max_seats - (event1.registered - 50)} / ${max_seats} Seats Left | Total Registrations : ${event1.registered - 50}`;
-        document.getElementById("event2-count").textContent = "Event Cancelled";
+        //document.getElementById("event2-count").textContent = "Event Cancelled";
 
         // Update progress bars
         document.getElementById("event1-bar").style.width = `${event1Percent}%`;
-        document.getElementById("event2-bar").style.width = `${event2Percent}%`;
+        //document.getElementById("event2-bar").style.width = `${event2Percent}%`;
 
         // Update timestamp
         document.getElementById("last-updated").textContent = data.last_updated;
@@ -100,11 +94,12 @@
 
     // Fetch once on load
     fetchData();
-    // Refresh every 5 minutes
-    setInterval(fetchData, 300000);
+    // Refresh every 30 secs
+    setInterval(fetchData, 30000);
   </script>
 </body>
 </html>
+
 
 
 
